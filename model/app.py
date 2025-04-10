@@ -6,8 +6,8 @@ os.environ['HF_TOKEN'] =  os.getenv('HF_TOKEN')
 access_token = os.environ['HF_TOKEN'] 
 
 
-tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b-it")
-model = AutoModelForCausalLM.from_pretrained("google/gemma-2b-it")
+tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b")
+model = AutoModelForCausalLM.from_pretrained("google/gemma-2b")
 
 @app.route('/' , method=['GET'])
 
