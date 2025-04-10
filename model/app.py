@@ -17,11 +17,11 @@ def index():
 @app.route('/ai', method=['POST'])
 
 def generate():
-    input = request.json['input']
+    input_text = request.json['input']
 
-    token = tokenizer(input ,return_tensors='pt')
+    token = tokenizer(input_text ,return_tensors='pt')
 
-    output = model.generate(**input , max_new_tokens =50)
+    output = model.generate(input_ids = input['input_id'] , max_new_tokens =50)
 
     generate = tokenizer.decode(output[0] ,skip_special_tokens=True)
 
