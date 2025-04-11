@@ -6,8 +6,8 @@ os.environ['HF_TOKEN'] =  os.getenv('HF_TOKEN')
 access_token = os.environ['HF_TOKEN'] 
 
 
-tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b-it")
-model = AutoModelForCausalLM.from_pretrained("google/gemma-2b-it")
+tokenizer = AutoTokenizer.from_pretrained("google/gemma-2b")
+model = AutoModelForCausalLM.from_pretrained("google/gemma-2b")
 
 @app.route('/' , method=['GET'])
 
@@ -17,11 +17,11 @@ def index():
 @app.route('/ai', method=['POST'])
 
 def generate():
-    input = request.json['input']
+    input_text = request.json['input']
 
-    token = tokenizer(input ,return_tensors='pt')
+    token = tokenizer(input_text ,return_tensors='pt')
 
-    output = model.generate(**input , max_new_tokens =50)
+    output = model.generate(input_ids = input['input_id'] , max_new_tokens =50)
 
     generate = tokenizer.decode(output[0] ,skip_special_tokens=True)
 
