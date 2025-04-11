@@ -32,4 +32,8 @@ class SendKML {
 </kml>
     ''';
   }
+
+  static String sendBallon() {
+    return '';
+  }
 }

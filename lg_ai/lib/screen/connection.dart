@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/service/lg_connection.dart';
 import '/service/shared_pref.dart';
 import '/service/ssh_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ConnectionPage extends StatefulWidget {
-  const ConnectionPage({super.key, required this.connection});
-
-  final void Function(bool) connection;
+  const ConnectionPage({super.key});
 
   @override
   State<ConnectionPage> createState() => _ConnectionPageState();
@@ -63,7 +62,6 @@ class _ConnectionPageState extends State<ConnectionPage> {
     );
     await _lg.connect();
 
-    widget.connection(_lg.establish);
     Navigator.pop(context);
   }
 
@@ -85,26 +83,27 @@ class _ConnectionPageState extends State<ConnectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SizedBox(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(40, 150, 40, 20),
+            padding: const EdgeInsets.all(20),
             child: Form(
               child: Column(
-                spacing: 30,
+                spacing: 20,
                 children: [
                   Text(
-                    'Set Connection',
-                    style: Theme.of(context).textTheme.headlineLarge,
+                    'Connect with LG',
+                    style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.headlineMedium,
+                    ),
                   ),
-                  SizedBox(width: 30),
+                  // SizedBox(width: 20),
                   TextFormField(
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.person_2_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
+                      // prefixIcon: Icon(Icons.person_2_outlined),
+                      border: OutlineInputBorder(),
 
                       label: Text('Username'),
                     ),
@@ -113,12 +112,10 @@ class _ConnectionPageState extends State<ConnectionPage> {
                   TextFormField(
                     obscureText: true,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
+                      border: OutlineInputBorder(),
 
                       label: Text('Password'),
-                      prefixIcon: Icon(Icons.key_outlined),
+                      // prefixIcon: Icon(Icons.key_outlined),
                     ),
                     controller: _pass,
                   ),
@@ -126,65 +123,32 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     keyboardType: TextInputType.number,
 
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
+                      border: OutlineInputBorder(),
 
                       label: Text('IP Address'),
-                      prefixIcon: Icon(Icons.router_outlined),
+                      // prefixIcon: Icon(Icons.router_outlined),
                     ),
                     controller: _ip,
                   ),
                   TextFormField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(35),
-                      ),
+                      border: OutlineInputBorder(),
 
                       label: Text('Port'),
-                      prefixIcon: Icon(Icons.computer_outlined),
+                      // prefixIcon: Icon(Icons.computer_outlined),
                     ),
                     controller: _port,
                   ),
-                  SizedBox(width: 30),
-                  SizedBox(
-                    width: 150,
-                    height: 50,
-                    child: ElevatedButton.icon(
-                      style: ButtonStyle(
-                        side: WidgetStateProperty.resolveWith<BorderSide>((
-                          states,
-                        ) {
-                          return BorderSide(
-                            // width: 2,
-                            color: Colors.white,
-                          );
-                        }),
-                        foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                          (states) {
-                            return Colors.white;
-                          },
-                        ),
-                        backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                          (states) {
-                            return Colors.greenAccent.shade700;
-                          },
-                        ),
-                      ),
-                      onPressed: () {
-                        onSubmit(_user.text, _pass.text, _ip.text, _port.text);
-                        setState(() {
-                          isConnected = !isConnected;
-                        });
-                      },
-                      label: Text('Connect', style: TextStyle(fontSize: 20)),
-                      icon: Icon(
-                        Icons.cable_outlined,
-                        size: 20,
-                        color: Colors.white,
-                      ),
-                    ),
+
+                  OutlinedButton(
+                    onPressed: () {
+                      onSubmit(_user.text, _pass.text, _ip.text, _port.text);
+                      setState(() {
+                        isConnected = !isConnected;
+                      });
+                    },
+                    child: Text('Connect'),
                   ),
                 ],
               ),

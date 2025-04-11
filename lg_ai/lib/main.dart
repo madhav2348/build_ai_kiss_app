@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lg_ai/screen/connection.dart';
+import 'package:lg_ai/screen/navigation.dart';
+import 'package:lg_ai/screen/setting.dart';
 import '/screen/screen.dart';
 import '/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(fileName: ".env");
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => ThemeChanger())],
@@ -28,10 +34,18 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData.dark(),
 
       // theme: themeprovider.check(),
-      theme: ThemeData(useMaterial3: true),
+      theme: ThemeData(
+        fontFamily: GoogleFonts.montserrat().fontFamily,
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Color.fromARGB(255, 255, 255, 255),
+        ),
+
+        // iconTheme: IconThemeData(color: Colors.white),
+      ),
       home: Scaffold(
-        appBar: AppBar(title: const Text('LG Basic'), elevation: 2),
-        body: Screen(),
+        appBar: AppBar(title: Text('KISS App'), elevation: 4),
+        body: Navigation(),
       ),
     );
   }
