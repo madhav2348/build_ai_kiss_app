@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lg_ai/screen/connection.dart';
 import 'package:lg_ai/screen/navigation.dart';
-import 'package:lg_ai/screen/setting.dart';
-import '/screen/screen.dart';
 import '/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     final themeprovider = Provider.of<ThemeChanger>(context);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: themeprovider.themeMode,
       darkTheme: ThemeData.dark(),
 
@@ -44,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         // iconTheme: IconThemeData(color: Colors.white),
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('KISS App'), elevation: 4),
+        // appBar: AppBar(title: Text('KISS App'), elevation: 4),
         body: Navigation(),
       ),
     );

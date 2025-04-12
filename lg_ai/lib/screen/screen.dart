@@ -20,7 +20,7 @@ class _ScreenState extends State<Screen> {
       appBar: AppBar(),
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(12),
+          padding: EdgeInsets.all(50),
           child: Form(
             child: Column(
               spacing: 30,

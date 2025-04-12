@@ -19,6 +19,7 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       body: item[index],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 20,
         currentIndex: index,
         onTap: (value) {
           setState(() {

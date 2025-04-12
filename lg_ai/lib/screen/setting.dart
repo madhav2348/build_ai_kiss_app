@@ -15,17 +15,43 @@ class _SettingScreenState extends State<SettingScreen> {
       body: Center(
         child: Column(
           spacing: 10,
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton(
-              onPressed: () {},
-              child: Text('Refresh Slave Screen'),
+            SizedBox(
+              width: 200,
+              // height: 40,
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Text('Refresh Slave Screen'),
+              ),
             ),
-            OutlinedButton(onPressed: () {}, child: Text('Reset Slave Screen')),
-            OutlinedButton(onPressed: () {}, child: Text('Clear Ballons')),
-            OutlinedButton(onPressed: () {}, child: Text('Relaunch')),
-            OutlinedButton(onPressed: () {}, child: Text('Reboot')),
-            OutlinedButton(onPressed: () {}, child: Text('Power OFF')),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Text('Reset Slave Screen'),
+              ),
+            ),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(
+                onPressed: () {},
+                child: Text('Clear Ballons'),
+              ),
+            ),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(onPressed: () {}, child: Text('Relaunch')),
+            ),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(onPressed: () {}, child: Text('Reboot')),
+            ),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(onPressed: () {}, child: Text('Power OFF')),
+            ),
+            SizedBox(height: 80),
           ],
         ),
       ),

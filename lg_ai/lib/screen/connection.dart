@@ -88,10 +88,12 @@ class _ConnectionPageState extends State<ConnectionPage> {
       body: Center(
         child: SizedBox(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(50),
             child: Form(
               child: Column(
                 spacing: 20,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     'Connect with LG',
@@ -150,6 +152,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     },
                     child: Text('Connect'),
                   ),
+                  SizedBox(height: 70),
                 ],
               ),
             ),
