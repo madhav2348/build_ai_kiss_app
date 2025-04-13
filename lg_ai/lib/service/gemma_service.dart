@@ -21,8 +21,8 @@ class GemmaService {
         
 ''';
 
-  String prompTemplate = '''
-I want information about the place: [PLACE_NAME]. Please provide a brief description of this place and at least three interesting facts about it. Structure your response as a JSON object with the following keys: "place" (containing the name of the place), "description", and "interesting_facts" (containing a list of at least three strings, each being an interesting fact).
+  String prompTemplate(String place) => '''
+I want information about the place: $place. Please provide a brief description of this place and at least three interesting facts about it. Structure your response as a JSON object with the following keys: "place" (containing the name of the place), "description", and "interesting_facts" (containing a list of at least three strings, each being an interesting fact).
 
 For example, if the place is "Eiffel Tower", the JSON response should look like this:
 
@@ -37,13 +37,22 @@ For example, if the place is "Eiffel Tower", the JSON response should look like 
   ]
 }```
 ''';
-  Future<void> connectWithGemma() async {
-    String url = dotenv.get('VERTEX_AI');
-    final link = Uri.https(url, '/endpoint');
-    final request = await http.post(link);
 
-    log(request.body);
-    log(request.body);
+  String removeSlashN(String data) {
+    return data.replaceAll("\n", " ");
+  }
+
+  Future<void> connectWithGemma(String place) async {
+    try {
+      String url = dotenv.get('VERTEX_AI');
+      final link = Uri.https(url, '/endpoint');
+      final request = await http.post(link, body: {"prompt": prompTemplate});
+      log(request.body);
+      log(request.body);
+    } catch (e) {
+      log(e.toString());
+      print(e);
+    }
   }
 }
 

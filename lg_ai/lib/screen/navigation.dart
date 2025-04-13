@@ -17,6 +17,8 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       body: item[index],
       bottomNavigationBar: BottomNavigationBar(
         elevation: 20,

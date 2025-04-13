@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '/service/lg_connection.dart';
 import '/service/shared_pref.dart';
 import '/service/ssh_service.dart';
@@ -89,99 +90,107 @@ class _ConnectionPageState extends State<ConnectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(),
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: SizedBox(
-          child: Padding(
-            padding: const EdgeInsets.all(50),
-            child: Form(
-              child: Column(
-                spacing: 20,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Connect with LG',
-                    style: GoogleFonts.montserrat(
-                      textStyle: Theme.of(context).textTheme.headlineMedium,
+    return Stack(
+      children: [
+        Container(
+          height: double.infinity,
+          width: double.infinity,
+          child: LottieBuilder.asset('assets/night.json', fit: BoxFit.fill),
+        ),
+        Center(
+          child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(50),
+              child: Form(
+                child: Column(
+                  spacing: 20,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Connect with LG',
+                      style: GoogleFonts.montserrat(
+                        textStyle: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ),
-                  ),
-                  // SizedBox(width: 20),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      // prefixIcon: Icon(Icons.person_2_outlined),
-                      border: OutlineInputBorder(),
+                    // SizedBox(width: 20),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        // prefixIcon: Icon(Icons.person_2_outlined),
+                        border: OutlineInputBorder(),
 
-                      label: Text('Username'),
+                        label: Text('Username'),
+                      ),
+                      controller: _user,
                     ),
-                    controller: _user,
-                  ),
-                  TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
 
-                      label: Text('Password'),
-                      // prefixIcon: Icon(Icons.key_outlined),
+                        label: Text('Password'),
+                        // prefixIcon: Icon(Icons.key_outlined),
+                      ),
+                      controller: _pass,
                     ),
-                    controller: _pass,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
+                    TextFormField(
+                      keyboardType: TextInputType.number,
 
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
 
-                      label: Text('IP Address'),
-                      // prefixIcon: Icon(Icons.router_outlined),
+                        label: Text('IP Address'),
+                        // prefixIcon: Icon(Icons.router_outlined),
+                      ),
+                      controller: _ip,
                     ),
-                    controller: _ip,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
 
-                      label: Text('Port'),
-                      // prefixIcon: Icon(Icons.computer_outlined),
+                        label: Text('Port'),
+                        // prefixIcon: Icon(Icons.computer_outlined),
+                      ),
+                      controller: _port,
                     ),
-                    controller: _port,
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
 
-                      label: Text('Number of rigs'),
-                      // prefixIcon: Icon(Icons.computer_outlined),
+                        label: Text('Number of rigs'),
+                        // prefixIcon: Icon(Icons.computer_outlined),
+                      ),
+                      controller: _rigs,
                     ),
-                    controller: _rigs,
-                  ),
 
-                  OutlinedButton(
-                    onPressed: () {
-                      onSubmit(
-                        _user.text,
-                        _pass.text,
-                        _ip.text,
-                        _port.text,
-                        _rigs.text,
-                      );
-                      setState(() {
-                        isConnected = !isConnected;
-                      });
-                    },
-                    child: Text('Connect'),
-                  ),
-                  SizedBox(height: 70),
-                ],
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          onSubmit(
+                            _user.text,
+                            _pass.text,
+                            _ip.text,
+                            _port.text,
+                            _rigs.text,
+                          );
+                          setState(() {
+                            isConnected = !isConnected;
+                          });
+                        },
+                        child: Text('Connect'),
+                      ),
+                    ),
+                    SizedBox(height: 70),
+                  ],
+                ),
               ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
