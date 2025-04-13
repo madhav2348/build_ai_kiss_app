@@ -17,7 +17,7 @@ class _ScreenState extends State<Screen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(50),

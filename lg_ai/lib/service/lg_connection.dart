@@ -13,22 +13,9 @@ class LGConnection {
 
   final String _url = '\nhttp://lg1:81';
 
-  // Future sendToLG() async {
-  //   //String kml
-  //   try {
-  //     await ssh.connectToserver();
-  //     await sendKMLToSlave(3, SendKML.sendlogo('slave_3'));
-  //     // await sendKMLToSlave(3, SendKML.sendClear('slave_3'));
-
-  //     showToast('Logo Sended');
-  //   } catch (e) {
-  //     showToast('Something went wrong');
-
-  //     throw Exception(e);
-  //   }
-  // }
-
   Future<void> sendKMLToSlave(int screen, String content) async {
+    final _data = await SharedPref.getData();
+    final rigs = _data['rigs']!;
     try {
       await ssh.connectToserver();
       await ssh.execute(
@@ -109,6 +96,35 @@ class LGConnection {
       showToast('Refreshing....');
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future information(
+    String custom,
+    String date,
+    String description,
+    String source,
+    String appname,
+  ) async {
+    final data = await SharedPref.getData();
+
+    int rigs = 3;
+    rigs = (int.parse(data['numberofrigs']) / 2).floor() + 1;
+    String openBalloonKML = '''
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	
+	
+</Document>
+</kml>
+  ''';
+    try {
+      await ssh.execute(
+        "echo '$openBalloonKML' > /var/www/html/kml/slave_$rigs.kml",
+      );
+    } catch (e) {
+      return Future.error(e);
     }
   }
 

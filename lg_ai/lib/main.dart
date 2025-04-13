@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env"); // you can ommit filename argument
+  //IF 1. you have define .env in root dir
+  //2. assets in pubspec.yml is only .env
   runApp(
     MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => ThemeChanger())],
@@ -32,17 +34,14 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData.dark(),
 
       // theme: themeprovider.check(),
-      theme: ThemeData(
-        fontFamily: GoogleFonts.montserrat().fontFamily,
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(255, 255, 255, 255),
-        ),
-
-        // iconTheme: IconThemeData(color: Colors.white),
-      ),
+      theme: allThemeData,
       home: Scaffold(
-        // appBar: AppBar(title: Text('KISS App'), elevation: 4),
+        appBar: AppBar(
+          title: Text('KISS App'),
+          elevation: 4,
+          // backgroundColor: Colors.white12, // This will override the theme
+          // foregroundColor: Colors.white12,
+        ),
         body: Navigation(),
       ),
     );

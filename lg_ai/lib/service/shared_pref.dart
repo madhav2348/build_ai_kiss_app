@@ -18,6 +18,7 @@ class SharedPref {
     final p_pass = prefs.getString('master_password');
     final p_port = prefs.getString('master_portNumber');
     final p_user = prefs.getString('master_username');
+    final p_rigs = prefs.getString('master_rigs');
     final p_est = prefs.getBool('established');
 
     return {
@@ -25,6 +26,7 @@ class SharedPref {
       "pass": p_pass!,
       "port": p_port!,
       "user": p_user!,
+      "rigs": p_rigs!,
       "est": p_est!,
     };
   }
@@ -34,6 +36,7 @@ class SharedPref {
     String pass,
     String ip,
     String port,
+    String rigs,
     bool est,
   ) async {
     final SharedPreferencesWithCache prefsWithCache =
@@ -47,6 +50,7 @@ class SharedPref {
     await prefsWithCache.setString('master_password', pass);
     await prefsWithCache.setString('master_portNumber', port);
     await prefsWithCache.setString('master_username', user);
+    await prefsWithCache.setString('master_rigs', rigs);
     await prefsWithCache.setBool('established', est);
   }
 }

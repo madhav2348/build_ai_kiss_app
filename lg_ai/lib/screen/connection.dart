@@ -23,6 +23,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   TextEditingController _user = TextEditingController(text: 'lg');
   TextEditingController _pass = TextEditingController(text: 'lg');
   TextEditingController _ip = TextEditingController();
+  TextEditingController _rigs = TextEditingController();
   TextEditingController _port = TextEditingController(text: '22');
 
   Future<List<String?>> _getPersistence() async {
@@ -44,9 +45,15 @@ class _ConnectionPageState extends State<ConnectionPage> {
     return [p_Ip, p_pass, p_port, p_user];
   }
 
-  onSubmit(String user, String pass, String ip, String port) async {
+  onSubmit(
+    String user,
+    String pass,
+    String ip,
+    String port,
+    String rigs,
+  ) async {
     // Navigator.pop(context);
-    await SharedPref.setData(user, pass, ip, port, true);
+    await SharedPref.setData(user, pass, ip, port, rigs, true);
     showDialog(
       context: context,
       builder: (context) {
@@ -83,7 +90,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SizedBox(
@@ -142,10 +149,26 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     ),
                     controller: _port,
                   ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+
+                      label: Text('Number of rigs'),
+                      // prefixIcon: Icon(Icons.computer_outlined),
+                    ),
+                    controller: _rigs,
+                  ),
 
                   OutlinedButton(
                     onPressed: () {
-                      onSubmit(_user.text, _pass.text, _ip.text, _port.text);
+                      onSubmit(
+                        _user.text,
+                        _pass.text,
+                        _ip.text,
+                        _port.text,
+                        _rigs.text,
+                      );
                       setState(() {
                         isConnected = !isConnected;
                       });
