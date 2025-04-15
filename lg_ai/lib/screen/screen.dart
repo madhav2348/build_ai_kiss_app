@@ -32,7 +32,7 @@ class _ScreenState extends State<Screen> {
                 children: [
                   Text(
                     '#BuildwithAI',
-                    style: Theme.of(context).textTheme.displaySmall,
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                   SizedBox(height: 20),
                   TextFormField(

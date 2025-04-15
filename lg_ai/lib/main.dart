@@ -37,8 +37,9 @@ class _MyAppState extends State<MyApp> {
       theme: allThemeData,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('KISS App'),
-          elevation: 4,
+          backgroundColor: Colors.grey,
+          title: Text('KISS App', style: TextStyle(color: Colors.white)),
+          // elevation: 4,
           // backgroundColor: Colors.white12, // This will override the theme
           // foregroundColor: Colors.white12,
         ),

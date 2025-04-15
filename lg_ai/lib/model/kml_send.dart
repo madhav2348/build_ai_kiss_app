@@ -1,28 +1,4 @@
-import '/model/kml.dart';
-
 class SendKML {
-  // static String get logo {
-  //   return '''
-  //    <name>Logoo</name>
-  //   <open>1</open>
-  //       <ScreenOverlay>
-  //       <visibility>1</visibility>
-  //       <name>Set-LOGO</name>
-  //       <Icon>
-  //         <href>https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXmdNgBTXup6bdWew5RzgCmC9pPb7rK487CpiscWB2S8OlhwFHmeeACHIIjx4B5-Iv-t95mNUx0JhB_oATG3-Tq1gs8Uj0-Xb9Njye6rHtKKsnJQJlzZqJxMDnj_2TXX3eA5x6VSgc8aw/s320-rw/LOGO+LIQUID+GALAXY-sq1000-+OKnoline.png</href>
-  //       </Icon>
-  //       <color>ffffffff</color>
-  //       <overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
-  //       <screenXY x="0.02" y="0.95" xunits="fraction" yunits="fraction"/>
-  //       <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-  //       <size x="0" y="0" xunits="pixels" yunits="pixels"/>
-  //     </ScreenOverlay> ''';
-  // }
-
-  // static String sendlogo(String id) {
-  //   return KML('LOGO', content: logo, id: id).fileKML;
-  // }
-
   static String sendClean(String id) {
     return '''
 <?xml version="1.0" encoding="UTF-8"?>
@@ -33,7 +9,7 @@ class SendKML {
     ''';
   }
 
-  static String sendBallon() {
+  static String sendOverlay() {
     return '';
   }
 }

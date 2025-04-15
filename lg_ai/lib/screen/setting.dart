@@ -39,20 +39,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     child: Text('Refresh Slave Screen'),
                   ),
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Reset Slave Screen'),
-                  ),
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Clear Ballons'),
-                  ),
-                ),
+
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(

@@ -110,7 +110,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     Text(
                       'Connect with LG',
                       style: GoogleFonts.montserrat(
-                        textStyle: Theme.of(context).textTheme.headlineMedium,
+                        textStyle: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
                     // SizedBox(width: 20),
