@@ -42,10 +42,11 @@ I want information about the place: $place. Please provide a brief description o
         );
         _model = AIDataModel.fromJson(dataInJson);
         notifyListeners();
+        print('done');
+        print(dataInJson);
       }
-
-      log(request.body);
-      log(request.body);
+      // log(request.body);
+      // log(request.body);
     } catch (e) {
       log(e.toString());
       print(e);

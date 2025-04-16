@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '/model/kml.dart';
-import '/model/kml_send.dart';
+import '../model/clear_kml.dart';
 import '/service/shared_pref.dart';
 import '/service/ssh_service.dart';
 import '/showtoast.dart';

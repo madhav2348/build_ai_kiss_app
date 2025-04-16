@@ -1,5 +1,5 @@
 # lg_ai
-
+## Main Project `#BuilswithAI KISS App` Simple search and get know intresting fact about that place 
 A new Flutter project.
 
 ## Getting Started
