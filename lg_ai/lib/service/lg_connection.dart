@@ -97,6 +97,7 @@ class LGConnection {
     } catch (e) {
       throw Exception(e);
     }
+    await reboot();
   }
 
   Future information(
@@ -126,6 +127,96 @@ class LGConnection {
     } catch (e) {
       return Future.error(e);
     }
+  }
+
+  Future<void> reboot() async {
+    final _data = await SharedPref.getData();
+    final pw = _data['pass']!;
+
+    for (var i = 3; i >= 1; i--) {
+      try {
+        await ssh.execute(
+          'sshpass -p $pw ssh -t lg$i "echo $pw | sudo -S reboot"',
+        );
+      } catch (e) {
+        // ignore: avoid_print
+        print(e);
+      }
+    }
+  }
+
+  Future<void> relaunch() async {
+    final _data = await SharedPref.getData();
+    final pw = _data['pass']!;
+    final user = _data['user'];
+
+    for (var i = 3; i >= 1; i--) {
+      try {
+        final relaunchCommand = """RELAUNCH_CMD="\\
+if [ -f /etc/init/lxdm.conf ]; then
+  export SERVICE=lxdm
+elif [ -f /etc/init/lightdm.conf ]; then
+  export SERVICE=lightdm
+else
+  exit 1
+fi
+if  [[ \\\$(service \\\$SERVICE status) =~ 'stop' ]]; then
+  echo $pw | sudo -S service \\\${SERVICE} start
+else
+  echo $pw | sudo -S service \\\${SERVICE} restart
+fi
+" && sshpass -p $pw ssh -x -t lg@lg$i "\$RELAUNCH_CMD\"""";
+        await ssh.execute(
+          '"/home/$user/bin/lg-relaunch" > /home/$user/log.txt',
+        );
+        await ssh.execute(relaunchCommand);
+      } catch (e) {
+        // ignore: avoid_print
+        print(e);
+      }
+    }
+  }
+
+  Future<void> shutdown() async {
+    final _data = await SharedPref.getData();
+    final pw = _data['pass']!;
+
+    for (var i = 3; i >= 1; i--) {
+      try {
+        await ssh.execute(
+          'sshpass -p $pw ssh -t lg$i "echo $pw | sudo -S poweroff"',
+        );
+      } catch (e) {
+        // ignore: avoid_print
+        print(e);
+      }
+    }
+  }
+
+  Future<void> resetRefresh() async {
+    final _data = await SharedPref.getData();
+    final pw = _data['pass']!;
+
+    const search =
+        '<href>##LG_PHPIFACE##kml\\/slave_{{slave}}.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
+    const replace = '<href>##LG_PHPIFACE##kml\\/slave_{{slave}}.kml<\\/href>';
+
+    final clear =
+        'echo $pw | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml';
+
+    for (var i = 2; i <= 3; i++) {
+      final cmd = clear.replaceAll('{{slave}}', i.toString());
+      String query = 'sshpass -p $pw ssh -t lg$i \'$cmd\'';
+
+      try {
+        await ssh.execute(query);
+      } catch (e) {
+        // ignore: avoid_print
+        print(e);
+      }
+    }
+
+    await reboot();
   }
 
   Future<void> connect() async {

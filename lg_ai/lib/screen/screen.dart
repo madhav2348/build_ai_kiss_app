@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lg_ai/service/ai_service.dart';
 import 'package:lottie/lottie.dart';
 
 class Screen extends StatefulWidget {
@@ -10,8 +11,11 @@ class Screen extends StatefulWidget {
 
 class _ScreenState extends State<Screen> {
   String? inputValue;
+  GeminiService ai = GeminiService();
 
-  onSubmit() {}
+  onSubmit(String value) {
+    ai.connectWithGemini(value);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class _ScreenState extends State<Screen> {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {},
+                      onPressed: onSubmit(inputValue!),
                       child: Text('Search'),
                     ),
                   ),

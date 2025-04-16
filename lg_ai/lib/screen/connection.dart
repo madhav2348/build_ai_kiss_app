@@ -24,7 +24,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   TextEditingController _user = TextEditingController(text: 'lg');
   TextEditingController _pass = TextEditingController(text: 'lg');
   TextEditingController _ip = TextEditingController();
-  TextEditingController _rigs = TextEditingController();
+  TextEditingController _rigs = TextEditingController(text: '3');
   TextEditingController _port = TextEditingController(text: '22');
 
   Future<List<String?>> _getPersistence() async {
