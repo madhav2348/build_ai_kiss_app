@@ -45,6 +45,7 @@ class LGConnection {
 
   Future<void> flyTo(String location) async {
     await ssh.execute('echo "flytoview=$location" > /tmp/query.txt');
+    showToast('Flying');
   }
 
   setRefresh() async {

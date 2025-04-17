@@ -35,6 +35,6 @@ class Location {
   }
 
   String get flyToLocation {
-    return '<LookAt><longitude>$longitute</longitude><latitude>$latitude</latitude><heading>59.88865561738225</heading><tilt>48.09646074797388</tilt><range>742.0552506670548</range></LookAt>';
+    return '<LookAt><longitude>$longitute</longitude><latitude>$latitude</latitude><heading>0</heading><tilt>0</tilt><range>2400</range></LookAt>';
   }
 }

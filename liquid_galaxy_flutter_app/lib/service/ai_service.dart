@@ -57,7 +57,8 @@ I want information about the place: $place. Please provide a brief description o
         notifyListeners();
       } else {}
     } catch (e) {
-      showToast('Something went wrong $e');
+      print(e);
+      showToast('Error during  Fetching AI data');
     }
   }
 }

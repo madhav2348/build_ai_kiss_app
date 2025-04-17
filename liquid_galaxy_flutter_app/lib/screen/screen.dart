@@ -18,16 +18,18 @@ class _ScreenState extends State<Screen> {
   TextEditingController inputValue = TextEditingController();
 
   LGConnection lg = LGConnection();
-  connectAndSend(KML kml, Location location) async {
+
+  Future<void> showLoadingAndWait(
+    BuildContext context,
+    KML kml,
+    Location location,
+  ) async {
     try {
-      await lg.sendKml(kml);
       await lg.flyTo(location.flyToLocation);
+      await lg.sendKml(kml);
     } catch (e) {
       showToast('something went wrong $e');
     }
-  }
-
-  Future<void> showLoadingAndWait(BuildContext context) async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -93,10 +95,10 @@ class _ScreenState extends State<Screen> {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () {
-                        showLoadingAndWait(context);
-                        ai.connectWithGemini(inputValue.text);
-                        connectAndSend(
+                      onPressed: () async {
+                        await ai.connectWithGemini(inputValue.text);
+                        showLoadingAndWait(
+                          context,
                           KML(
                             name: ai.model.place,
                             id: ai.model.place,
