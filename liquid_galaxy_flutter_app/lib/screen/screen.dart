@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lg_ai/model/ai_data_model.dart';
+import 'package:lg_ai/model/kml.dart';
 import 'package:lg_ai/service/ai_service.dart';
+import 'package:lg_ai/service/lg_connection.dart';
+import 'package:lg_ai/showtoast.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -10,18 +15,38 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-  String? inputValue;
-  GeminiService ai = GeminiService();
+  TextEditingController inputValue = TextEditingController();
 
-  onSubmit(String value) {
-    ai.connectWithGemini(value);
+  LGConnection lg = LGConnection();
+  connectAndSend(KML kml, Location location) async {
+    try {
+      await lg.sendKml(kml);
+      await lg.flyTo(location.flyToLocation);
+    } catch (e) {
+      showToast('something went wrong $e');
+    }
+  }
+
+  Future<void> showLoadingAndWait(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Center(child: CircularProgressIndicator(color: Colors.white));
+      },
+    );
+
+    await Future.delayed(Duration(seconds: 5));
+
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    final ai = Provider.of<GeminiService>(context);
     return Stack(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: Lottie.asset('assets/night.json', fit: BoxFit.fill),
@@ -40,14 +65,19 @@ class _ScreenState extends State<Screen> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    onChanged: (value) {
-                      inputValue = value;
-                    },
+                    controller: inputValue,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Enter the location';
                       }
                       return null;
+                    },
+                    onSaved: (newValue) {
+                      if (newValue == null || newValue.isEmpty) {
+                        showToast('Enter the location');
+                      } else {
+                        showToast('Searching.....');
+                      }
                     },
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -63,8 +93,25 @@ class _ScreenState extends State<Screen> {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: onSubmit(inputValue!),
-                      child: Text('Search'),
+                      onPressed: () {
+                        showLoadingAndWait(context);
+                        ai.connectWithGemini(inputValue.text);
+                        connectAndSend(
+                          KML(
+                            name: ai.model.place,
+                            id: ai.model.place,
+                            heading: ai.model.place,
+                            description: ai.model.description,
+                            facts: ai.model.intrestingFact,
+                            location: ai.model.latlog,
+                          ),
+                          ai.model.latlog,
+                        );
+                      },
+                      child: Text(
+                        'Search',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),

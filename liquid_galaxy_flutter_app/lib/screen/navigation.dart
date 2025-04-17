@@ -21,7 +21,11 @@ class _NavigationState extends State<Navigation> {
 
       body: item[index],
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 20,
+        backgroundColor: Colors.transparent,
+        unselectedItemColor: Colors.white24,
+        unselectedIconTheme: IconThemeData(color: Colors.white24),
+        // elevation: ,
+        // type: BottomNavigationBarType.shifting,
         currentIndex: index,
         onTap: (value) {
           setState(() {

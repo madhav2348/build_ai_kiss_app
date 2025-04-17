@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import '/model/kml.dart';
-import '../model/clear_kml.dart';
+// import '../model/clear_kml.dart';
 import '/service/shared_pref.dart';
 import '/service/ssh_service.dart';
 import '/showtoast.dart';
@@ -12,21 +12,6 @@ class LGConnection {
   bool get establish => _established;
 
   final String _url = '\nhttp://lg1:81';
-
-  Future<void> sendKMLToSlave(int screen, String content) async {
-    final _data = await SharedPref.getData();
-    final rigs = _data['rigs']!;
-    try {
-      await ssh.connectToserver();
-      await ssh.execute(
-        'echo \'$content\' > /var/www/html/kml/slave_$screen.kml',
-      );
-      await setRefresh();
-    } catch (e) {
-      showToast('Something went wrong $e');
-      throw Exception();
-    }
-  }
 
   Future<void> sendKml(KML kml) async {
     final fileName = '${kml.name}.kml';
@@ -41,20 +26,6 @@ class LGConnection {
       showToast('Connection Failed');
 
       throw Exception(e);
-    }
-  }
-
-  Future<void> clearSlave(String screen) async {
-    final kml = SendKML.sendClean('slave_$screen');
-
-    try {
-      await ssh.connectToserver();
-      await ssh.execute("echo '$kml' > /var/www/html/kml/slave_$screen.kml");
-      showToast('Clear Logo');
-      showToast('Logo Clear');
-    } catch (e) {
-      print(e);
-      showToast('Something went wrong $e');
     }
   }
 
@@ -77,8 +48,8 @@ class LGConnection {
   }
 
   setRefresh() async {
-    final _data = await SharedPref.getData();
-    final _passwordOrKey = _data['pass']!;
+    final data = await SharedPref.getData();
+    final passwordOrKey = data['pass']!;
     //  final _client = await ssh.connectToserver();
     try {
       for (var i = 2; i <= 3; i++) {
@@ -87,10 +58,10 @@ class LGConnection {
             '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
 
         await ssh.execute(
-          'sshpass -p $_passwordOrKey ssh -t lg$i \'echo $_passwordOrKey |sudo -S sed -i "s/$replace/$search/"~/earth/kml/slave/myplaces.kml\'',
+          'sshpass -p $passwordOrKey ssh -t lg$i \'echo $passwordOrKey |sudo -S sed -i "s/$replace/$search/"~/earth/kml/slave/myplaces.kml\'',
         );
         await ssh.execute(
-          'sshpass -p $_passwordOrKey ssh -t lg$i \'echo $_passwordOrKey | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'',
+          'sshpass -p $passwordOrKey ssh -t lg$i \'echo $passwordOrKey | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'',
         );
       }
       showToast('Refreshing....');
@@ -100,38 +71,9 @@ class LGConnection {
     await reboot();
   }
 
-  Future information(
-    String custom,
-    String date,
-    String description,
-    String source,
-    String appname,
-  ) async {
-    final data = await SharedPref.getData();
-
-    int rigs = 3;
-    rigs = (int.parse(data['numberofrigs']) / 2).floor() + 1;
-    String openBalloonKML = '''
-<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
-<Document>
-	
-	
-</Document>
-</kml>
-  ''';
-    try {
-      await ssh.execute(
-        "echo '$openBalloonKML' > /var/www/html/kml/slave_$rigs.kml",
-      );
-    } catch (e) {
-      return Future.error(e);
-    }
-  }
-
   Future<void> reboot() async {
-    final _data = await SharedPref.getData();
-    final pw = _data['pass']!;
+    final data = await SharedPref.getData();
+    final pw = data['pass']!;
 
     for (var i = 3; i >= 1; i--) {
       try {
@@ -146,9 +88,9 @@ class LGConnection {
   }
 
   Future<void> relaunch() async {
-    final _data = await SharedPref.getData();
-    final pw = _data['pass']!;
-    final user = _data['user'];
+    final data = await SharedPref.getData();
+    final pw = data['pass']!;
+    final user = data['user'];
 
     for (var i = 3; i >= 1; i--) {
       try {
@@ -178,8 +120,8 @@ fi
   }
 
   Future<void> shutdown() async {
-    final _data = await SharedPref.getData();
-    final pw = _data['pass']!;
+    final data = await SharedPref.getData();
+    final pw = data['pass']!;
 
     for (var i = 3; i >= 1; i--) {
       try {
@@ -194,8 +136,8 @@ fi
   }
 
   Future<void> resetRefresh() async {
-    final _data = await SharedPref.getData();
-    final pw = _data['pass']!;
+    final data = await SharedPref.getData();
+    final pw = data['pass']!;
 
     const search =
         '<href>##LG_PHPIFACE##kml\\/slave_{{slave}}.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';

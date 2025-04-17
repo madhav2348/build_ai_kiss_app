@@ -14,20 +14,20 @@ class SharedPref {
       ),
     );
 
-    final p_Ip = prefs.getString('master_ip');
-    final p_pass = prefs.getString('master_password');
-    final p_port = prefs.getString('master_portNumber');
-    final p_user = prefs.getString('master_username');
-    final p_rigs = prefs.getString('master_rigs');
-    final p_est = prefs.getBool('established');
+    final pIp = prefs.getString('master_ip');
+    final pPass = prefs.getString('master_password');
+    final pPort = prefs.getString('master_portNumber');
+    final pUser = prefs.getString('master_username');
+    final pRigs = prefs.getString('master_rigs');
+    final pEst = prefs.getBool('established');
 
     return {
-      "ip": p_Ip!,
-      "pass": p_pass!,
-      "port": p_port!,
-      "user": p_user!,
-      "rigs": p_rigs!,
-      "est": p_est!,
+      "ip": pIp!,
+      "pass": pPass!,
+      "port": pPort!,
+      "user": pUser!,
+      "rigs": pRigs!,
+      "est": pEst!,
     };
   }
 

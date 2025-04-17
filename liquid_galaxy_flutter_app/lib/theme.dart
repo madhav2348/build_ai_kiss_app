@@ -73,7 +73,7 @@ final allThemeData = ThemeData(
     bodyMedium: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.white),
     titleLarge: TextStyle(color: Colors.white),
-    titleMedium: TextStyle(color: Colors.white),
+    titleMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
     titleSmall: TextStyle(color: Colors.white),
     headlineLarge: TextStyle(color: Colors.white),
     headlineMedium: TextStyle(color: Colors.white),

@@ -15,8 +15,11 @@ class AIDataModel {
     return AIDataModel(
       place: data['place'],
       description: data['description'],
-      intrestingFact: data['intresting_facts'],
-      latlog: Location.fromJson(data['coordiantes']),
+      intrestingFact:
+          (data['interesting_facts'] as List<dynamic>)
+              .map((element) => element.toString())
+              .toList(),
+      latlog: Location.fromJson(data['coordinates'] as Map<String, dynamic>),
     );
   }
 }
@@ -28,6 +31,10 @@ class Location {
   Location({required this.latitude, required this.longitute});
 
   factory Location.fromJson(Map<String, dynamic> data) {
-    return Location(latitude: data["latitude"], longitute: data["longitute"]);
+    return Location(latitude: data["latitude"], longitute: data["longitude"]);
+  }
+
+  String get flyToLocation {
+    return '<LookAt><longitude>$longitute</longitude><latitude>$latitude</latitude><heading>59.88865561738225</heading><tilt>48.09646074797388</tilt><range>742.0552506670548</range></LookAt>';
   }
 }

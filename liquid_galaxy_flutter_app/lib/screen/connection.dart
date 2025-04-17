@@ -18,14 +18,14 @@ class ConnectionPage extends StatefulWidget {
 class _ConnectionPageState extends State<ConnectionPage> {
   bool isConnected = false;
 
-  LGConnection _lg = LGConnection();
+  final LGConnection _lg = LGConnection();
   SSHService ssh = SSHService();
 
-  TextEditingController _user = TextEditingController(text: 'lg');
-  TextEditingController _pass = TextEditingController(text: 'lg');
-  TextEditingController _ip = TextEditingController();
-  TextEditingController _rigs = TextEditingController(text: '3');
-  TextEditingController _port = TextEditingController(text: '22');
+  final TextEditingController _user = TextEditingController(text: 'lg');
+  final TextEditingController _pass = TextEditingController(text: 'lg');
+  final TextEditingController _ip = TextEditingController();
+  final TextEditingController _rigs = TextEditingController(text: '3');
+  final TextEditingController _port = TextEditingController(text: '22');
 
   Future<List<String?>> _getPersistence() async {
     SharedPreferencesWithCache prefs = await SharedPreferencesWithCache.create(
@@ -34,16 +34,16 @@ class _ConnectionPageState extends State<ConnectionPage> {
       ),
     );
 
-    final p_Ip = prefs.getString('master_ip');
-    final p_pass = prefs.getString('master_password');
-    final p_port = prefs.getString('master_portNumber');
-    final p_user = prefs.getString('master_username');
+    final pIp = prefs.getString('master_ip');
+    final pPass = prefs.getString('master_password');
+    final pPort = prefs.getString('master_portNumber');
+    final pUser = prefs.getString('master_username');
 
-    _user.text = p_user!;
-    _pass.text = p_pass!;
-    _ip.text = p_Ip!;
-    _port.text = p_port!;
-    return [p_Ip, p_pass, p_port, p_user];
+    _user.text = pUser!;
+    _pass.text = pPass!;
+    _ip.text = pIp!;
+    _port.text = pPort!;
+    return [pIp, pPass, pPort, pUser];
   }
 
   onSubmit(
@@ -64,7 +64,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
         return SizedBox(
           width: 100,
           height: 100,
-          child: Center(child: CircularProgressIndicator()),
+          child: Center(child: CircularProgressIndicator(color: Colors.white)),
         );
       },
     );
@@ -92,7 +92,7 @@ class _ConnectionPageState extends State<ConnectionPage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: LottieBuilder.asset('assets/night.json', fit: BoxFit.fill),
@@ -180,7 +180,10 @@ class _ConnectionPageState extends State<ConnectionPage> {
                             isConnected = !isConnected;
                           });
                         },
-                        child: Text('Connect'),
+                        child: Text(
+                          'Connect',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
                       ),
                     ),
                     SizedBox(height: 70),

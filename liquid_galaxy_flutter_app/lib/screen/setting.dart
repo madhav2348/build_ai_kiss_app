@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lg_ai/service/lg_connection.dart';
 import 'package:lottie/lottie.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -9,11 +10,13 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  LGConnection lg = LGConnection();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Container(
+        SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: LottieBuilder.asset(
@@ -35,30 +38,42 @@ class _SettingScreenState extends State<SettingScreen> {
                   width: double.infinity,
                   // height: 40,
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Refresh Slave Screen'),
+                    onPressed: () => lg.setRefresh(),
+                    child: Text(
+                      'Refresh Slave Screen',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
 
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Relaunch'),
+                    onPressed: () => lg.relaunch(),
+                    child: Text(
+                      'Relaunch',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Reboot'),
+                    onPressed: () => lg.reboot(),
+                    child: Text(
+                      'Reboot',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () {},
-                    child: Text('Power OFF'),
+                    onPressed: () => lg.shutdown(),
+                    child: Text(
+                      'Power OFF',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
                   ),
                 ),
                 SizedBox(height: 80),
