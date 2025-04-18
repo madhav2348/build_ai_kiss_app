@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:lg_ai/model/ai_data_model.dart';
 import 'package:lg_ai/model/kml.dart';
 import 'package:lg_ai/service/ai_service.dart';
@@ -14,11 +15,13 @@ class Screen extends StatefulWidget {
   State<Screen> createState() => _ScreenState();
 }
 
+enum TtsState { playing, stopped, paused, continued }
+
 class _ScreenState extends State<Screen> {
   TextEditingController inputValue = TextEditingController();
 
   LGConnection lg = LGConnection();
-
+  final FlutterTts flutterTts = FlutterTts();
   Future<void> showLoadingAndWait(
     BuildContext context,
     KML kml,
@@ -41,6 +44,18 @@ class _ScreenState extends State<Screen> {
     await Future.delayed(Duration(seconds: 5));
 
     Navigator.of(context).pop();
+  }
+
+  Future<void> _speak(String paragraph) async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.speak(paragraph);
+  }
+
+  @override
+  void dispose() {
+    flutterTts.stop();
+    super.dispose();
   }
 
   @override
@@ -108,6 +123,9 @@ class _ScreenState extends State<Screen> {
                             location: ai.model.latlog,
                           ),
                           ai.model.latlog,
+                        );
+                        await _speak(
+                          '${ai.model.description} ${ai.model.intrestingFact}',
                         );
                       },
                       child: Text(
