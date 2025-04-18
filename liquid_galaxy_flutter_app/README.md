@@ -1,7 +1,6 @@
 # lg_ai
 ## Main Project `#BuilswithAI KISS App` Simple search and get know intresting fact about that place 
-A new Flutter project.
-
+ Download : https://drive.google.com/file/d/1hhluNbDJTEAJniZ44azBPO8dYIEMZWmN/view?usp=drive_link
 ## Getting Started
 
 This project is a starting point for a Flutter application.

@@ -38,7 +38,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   width: double.infinity,
                   // height: 40,
                   child: OutlinedButton(
-                    onPressed: () => lg.setRefresh(),
+                    onPressed: () async => await lg.setRefresh(),
                     child: Text(
                       'Refresh Slave Screen',
                       style: Theme.of(context).textTheme.titleMedium,
@@ -49,7 +49,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () => lg.relaunch(),
+                    onPressed: () async => await lg.relaunch(),
                     child: Text(
                       'Relaunch',
                       style: Theme.of(context).textTheme.titleMedium,
@@ -59,7 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () => lg.reboot(),
+                    onPressed: () async => await lg.reboot(),
                     child: Text(
                       'Reboot',
                       style: Theme.of(context).textTheme.titleMedium,
@@ -69,7 +69,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: OutlinedButton(
-                    onPressed: () => lg.shutdown(),
+                    onPressed: () async => await lg.shutdown(),
                     child: Text(
                       'Power OFF',
                       style: Theme.of(context).textTheme.titleMedium,

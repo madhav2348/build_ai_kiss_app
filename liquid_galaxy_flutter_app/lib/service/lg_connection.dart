@@ -15,7 +15,6 @@ class LGConnection {
 
   Future<void> sendKml(KML kml) async {
     final fileName = '${kml.name}.kml';
-
     try {
       await ssh.connectToserver();
       await ssh.execute('echo \'${kml.fileKML}\' > /var/www/html/$fileName');
@@ -45,7 +44,7 @@ class LGConnection {
 
   Future<void> flyTo(String location) async {
     await ssh.execute('echo "flytoview=$location" > /tmp/query.txt');
-    showToast('Flying');
+    showToast('Flying...');
   }
 
   setRefresh() async {
