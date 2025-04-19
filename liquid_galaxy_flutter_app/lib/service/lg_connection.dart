@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:lg_ai/model/ai_data_model.dart';
+
 import '/model/kml.dart';
 // import '../model/clear_kml.dart';
 import '/service/shared_pref.dart';
@@ -13,16 +15,18 @@ class LGConnection {
 
   final String _url = '\nhttp://lg1:81';
 
-  Future<void> sendKml(KML kml) async {
-    final fileName = '${kml.name}.kml';
+  Future<void> sendKml(KML kml, Location location) async {
+    final fileName = '${kml.heading}.kml';
+    print(kml.fileKML);
     try {
       await ssh.connectToserver();
       await ssh.execute('echo \'${kml.fileKML}\' > /var/www/html/$fileName');
 
       await ssh.execute('echo "$_url/$fileName" > /var/www/html/kmls.txt');
+      await flyTo(location.flyToLocation);
       showToast('KML Send');
     } catch (e) {
-      showToast('Connection Failed');
+      showToast('Connection Failed KML not sended');
 
       throw Exception(e);
     }
@@ -80,6 +84,7 @@ class LGConnection {
         await ssh.execute(
           'sshpass -p $pw ssh -t lg$i "echo $pw | sudo -S reboot"',
         );
+        showToast('Reboot ...');
       } catch (e) {
         // ignore: avoid_print
         print(e);
@@ -112,6 +117,7 @@ fi
           '"/home/$user/bin/lg-relaunch" > /home/$user/log.txt',
         );
         await ssh.execute(relaunchCommand);
+        showToast('Relaunch ...');
       } catch (e) {
         // ignore: avoid_print
         print(e);
@@ -128,6 +134,7 @@ fi
         await ssh.execute(
           'sshpass -p $pw ssh -t lg$i "echo $pw | sudo -S poweroff"',
         );
+        showToast('Shutdown ....');
       } catch (e) {
         // ignore: avoid_print
         print(e);
@@ -152,6 +159,7 @@ fi
 
       try {
         await ssh.execute(query);
+        showToast('Reset  Refresh. ...');
       } catch (e) {
         // ignore: avoid_print
         print(e);

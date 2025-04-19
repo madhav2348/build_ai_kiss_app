@@ -28,8 +28,7 @@ class _ScreenState extends State<Screen> {
     Location location,
   ) async {
     try {
-      await lg.flyTo(location.flyToLocation);
-      await lg.sendKml(kml);
+      await lg.sendKml(kml, location);
     } catch (e) {
       showToast('something went wrong $e');
     }
@@ -115,8 +114,6 @@ class _ScreenState extends State<Screen> {
                         showLoadingAndWait(
                           context,
                           KML(
-                            name: ai.model.place,
-                            id: ai.model.place,
                             heading: ai.model.place,
                             description: ai.model.description,
                             facts: ai.model.intrestingFact,

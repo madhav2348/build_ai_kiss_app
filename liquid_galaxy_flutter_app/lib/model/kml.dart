@@ -1,17 +1,12 @@
 import 'package:lg_ai/model/ai_data_model.dart';
 
 class KML {
-  final String name;
-  final String id;
   final String heading;
   final String description;
   final List<String> facts;
   final Location location;
 
   KML({
-    required this.name,
-
-    required this.id,
     required this.heading,
     required this.description,
     required this.facts,
@@ -23,7 +18,7 @@ class KML {
 <?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>   
-  <Style id="trailhead-balloon-template">  
+   <Style id="trailhead-balloon-template">  
     <BalloonStyle>       
       <text>
         <![CDATA[         
@@ -37,8 +32,8 @@ class KML {
         ]]>
       </text>   
       <bgColor>ffffffff</bgColor>  
-    </BalloonStyle>
-  </Style>        
+    </BalloonStyle> 
+  </Style>    
   <Placemark>     
     <name>$heading</name>     
     <styleUrl>#trailhead-balloon-template</styleUrl>   

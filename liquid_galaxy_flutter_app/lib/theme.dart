@@ -29,11 +29,11 @@ final allThemeData = ThemeData(
   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
     backgroundColor: Colors.grey,
     selectedItemColor: Colors.white,
-    unselectedItemColor: Color.fromARGB(255, 0, 0, 0),
+    unselectedItemColor: Colors.black,
     selectedLabelStyle: TextStyle(color: Colors.white),
-    unselectedLabelStyle: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+    unselectedLabelStyle: TextStyle(color: Colors.black),
     selectedIconTheme: IconThemeData(color: Colors.white),
-    unselectedIconTheme: IconThemeData(color: Color.fromARGB(179, 0, 0, 0)),
+    unselectedIconTheme: IconThemeData(color: Colors.black),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
@@ -69,6 +69,7 @@ final allThemeData = ThemeData(
   primarySwatch: Colors.grey,
   scaffoldBackgroundColor: Colors.black,
   textTheme: TextTheme(
+    displayMedium: TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
     bodyLarge: TextStyle(color: Colors.white),
     bodyMedium: TextStyle(color: Colors.white),
     bodySmall: TextStyle(color: Colors.white),
