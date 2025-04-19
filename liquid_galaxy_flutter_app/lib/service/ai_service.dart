@@ -16,13 +16,9 @@ class GeminiService extends ChangeNotifier {
   // );
   AIDataModel get model => _model!;
 
-  String removeUnwanted(String text) {
-    return text.replaceAll('\n', '');
-  }
-
   static String prompTemplate(String place) => '''
 I want information about the place: $place. Please provide a brief description of this place and at least three interesting facts about it and coordinates. Structure your response as a JSON object with the following keys: "place" (containing the name of the place), "description",  "interesting_facts" (containing a list of at least three strings, each being an interesting fact) and "coordinates"(containing "latitide" as latitude and "longitide" as longitude).
- remeber to remove all escape characters 
+
 
 ''';
 
