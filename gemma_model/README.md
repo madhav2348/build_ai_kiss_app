@@ -1,1 +1,0 @@
-## Warning : This is kust a test application where i tried to use docker to run Gemma 2 LLM in local machine
