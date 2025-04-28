@@ -59,7 +59,7 @@ class _ScreenState extends State<Screen> {
 
   @override
   Widget build(BuildContext context) {
-    final ai = Provider.of<GeminiService>(context);
+    // final ai = Provider.of<GeminiService>(context);
     return Stack(
       children: [
         SizedBox(
@@ -109,22 +109,7 @@ class _ScreenState extends State<Screen> {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: () async {
-                        await ai.connectWithGemini(inputValue.text);
-                        showLoadingAndWait(
-                          context,
-                          KML(
-                            heading: ai.model.place,
-                            description: ai.model.description,
-                            facts: ai.model.intrestingFact,
-                            location: ai.model.latlog,
-                          ),
-                          ai.model.latlog,
-                        );
-                        await _speak(
-                          '${ai.model.description} ${ai.model.intrestingFact}',
-                        );
-                      },
+                      onPressed: () async {},
                       child: Text(
                         'Search',
                         style: Theme.of(context).textTheme.titleMedium,

@@ -4,17 +4,13 @@ import 'package:lg_ai/screen/navigation.dart';
 import 'package:lg_ai/service/ai_service.dart';
 import '/theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 Future main() async {
-  await dotenv.load(fileName: ".env"); // you can ommit filename argument
-  //IF 1. you have define .env in root dir
-  //2. assets in pubspec.yml is only .env
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeChanger()),
-        ChangeNotifierProvider(create: (_) => GeminiService()),
+        // ChangeNotifierProvider(create: (_) => GeminiService()),
       ],
       child: const MyApp(),
     ),
